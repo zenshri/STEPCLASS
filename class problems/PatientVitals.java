@@ -1,0 +1,41 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class PatientVitals {
+    private final List<Double> readings;
+
+    public PatientVitals(double[] initialReadings) {
+        this.readings = new ArrayList<>();
+        if (initialReadings != null) {
+            for (double reading : initialReadings) {
+                recordReading(reading);
+            }
+        }
+    }
+
+    public void recordReading(double reading) {
+        if (reading <= 0.0 || reading > 45.0) {
+            return;
+        }
+        readings.add(reading);
+    }
+
+    public double getAverage() {
+        if (readings.isEmpty()) {
+            return 0.0;
+        }
+        double sum = 0.0;
+        for (double r : readings) {
+            sum += r;
+        }
+        return sum / readings.size();
+    }
+
+    public double[] getAllReadings() {
+        double[] copy = new double[readings.size()];
+        for (int i = 0; i < readings.size(); i++) {
+            copy[i] = readings.get(i);
+        }
+        return copy;
+    }
+}
