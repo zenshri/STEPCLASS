@@ -1,0 +1,136 @@
+========================================
+SECTION A: QUIZ QUESTIONS (MCQs)
+========================================
+
+Q1. A system processes various types of financial transactions (e.g., deposits, withdrawals, transfers). Each transaction type requires specific validation and processing logic, but they all share a common interface for initiation and status tracking. The system is designed to allow new transaction types to be added without modifying the core transaction processing engine. Which design principle and OOP concept combination primarily enables this flexibility and extensibility?
+
+Answer: C. Abstraction and Runtime Polymorphism
+
+Q2. Consider a Vehicle class that can be either a Car or a Motorcycle. Both Car and Motorcycle have distinct methods for calculating fuel efficiency. A function print_vehicle_details accepts a Vehicle object and calls a calculate_fuel_efficiency method on it, without knowing the specific type of vehicle at compile time. Which of the following OOP concepts are directly demonstrated in this scenario?
+
+Answer: B, C, D. Runtime Polymorphism, Inheritance and Dynamic Dispatch
+
+Q3. A Book object in a library system needs to track its availability. When a member borrows the book, its status changes from 'Available' to 'Borrowed'. When returned, it changes back to 'Available'. A 'Borrowed' book cannot be borrowed again until it's returned. Which UML behavioral model is best suited to represent these distinct states and the transitions between them, along with the conditions for valid state changes?
+
+Answer: D. State Diagram
+
+Q4. A Customer can place multiple Orders, but an Order is always placed by exactly one Customer. An Order cannot exist without being associated with a Customer. If a Customer is removed from the system, all their Orders should also be removed. Which UML relationship types are most appropriate for modeling the strong lifecycle dependency between Customer and Order in this scenario?
+
+Answer: C. Composition
+
+Q5. A FoodOrder object encapsulates its LineItems. Each LineItem represents a specific food item with a quantity. The LineItems are created and managed exclusively by the FoodOrder object and cease to exist if the FoodOrder is cancelled or completed. No LineItem can exist without being part of a FoodOrder. Which type of relationship best describes the connection between FoodOrder and LineItem?
+
+Answer: D. Composition
+
+Q6. A PaymentProcessor module needs to handle various payment methods (e.g., Credit Card, PayPal, Bank Transfer). The PaymentProcessor should interact with these methods through a common IPaymentMethod interface. When a new payment method is introduced, the PaymentProcessor's code should not need modification. Which OOP principle is most directly applied here to achieve extensibility?
+
+Answer: C. Abstraction
+
+Q7. During an online examination, a student starts an attempt, answers questions, and finally submits. After submission, the answers cannot be changed, and the attempt is evaluated. The flow of these actions (start, answer, submit, evaluate) and the sequence of interactions between the Student, Examination, and Submission objects are crucial. Which UML diagram type is best suited to visualize this step-by-step interaction and message flow?
+
+Answer: C. Sequence Diagram
+
+Q8. An Employee object has an annual_salary attribute. The business rule states that the annual_salary cannot be set to a negative value. A set_salary method is used to update this attribute, which includes a validation check to ensure the salary is non-negative before updating the internal state. Which of the following OOP concepts are effectively demonstrated by this design?
+
+Answer: A, B, D. Data Hiding, Encapsulation and Maintaining Valid Object State
+
+Q9. A Logger interface defines a log_message(message: str) method. Concrete implementations include FileLogger, DatabaseLogger, and ConsoleLogger. A client application needs to log messages but should not depend on which specific logger implementation is being used. This approach allows for swapping logger implementations without altering the client code. What is the UML relationship between the FileLogger class and the Logger interface?
+
+Answer: D. Realization
+
+Q10. A Course can have a maximum of 50 Students. A Student can enroll in multiple Courses. What is the correct multiplicity representation for the relationship between Course and Student from the perspective of Course to Student and Student to Course?
+
+Answer: C. Course 1 to 0..50 Students, Student 1 to 0..* Courses
+
+
+========================================
+SECTION B: CONCEPT QUESTIONS AND ANSWERS
+========================================
+
+Q1. In a ShoppingCart object, the total_price should always be the sum of the prices of all LineItems. If an external operation could directly modify total_price without updating LineItems, the object's state could become inconsistent. Explain how the concept of 'invariants' relates to maintaining a valid object state within a ShoppingCart. Discuss how proper encapsulation and controlled modification of state, typically through methods, enforce these invariants and prevent invalid states.
+
+Answer:
+
+An invariant is a condition that must always remain true for an object. In a ShoppingCart, the invariant is that total_price must always equal the sum of the prices of all LineItems.
+
+If external code directly modifies total_price, the cart may become inconsistent because the total price will no longer match the items.
+
+Encapsulation solves this problem by making total_price private and allowing modifications only through controlled methods.
+
+For example, methods such as addItem() and removeItem() can automatically update the total price whenever an item is added or removed.
+
+This ensures that the object's state remains valid and consistent. Therefore, invariants help maintain data integrity, while encapsulation prevents unauthorized modifications and protects the object's internal state.
+
+
+Q2. A SmartDevice can have optional capabilities like Camera, GPS, or Bluetooth. If every capability were modeled using inheritance (e.g., SmartDeviceWithCamera, SmartDeviceWithGPS), it could lead to an explosion of classes and a rigid hierarchy, making it hard to manage combinations of capabilities (e.g., a device with both camera and GPS). Explain why composition might be a more suitable approach than inheritance for modeling such optional capabilities. Use the SmartDevice scenario to illustrate how composition provides greater flexibility and extensibility when dealing with varied combinations of features.
+
+Answer:
+
+Composition is more suitable than inheritance because it allows a SmartDevice to contain different capabilities as separate objects.
+
+Using inheritance would require creating multiple subclasses for every possible combination of capabilities, such as SmartDeviceWithCamera, SmartDeviceWithGPS, and SmartDeviceWithCameraAndGPS.
+
+This creates class explosion and makes the system difficult to maintain.
+
+With composition, capabilities such as Camera, GPS, and Bluetooth can be implemented as separate classes and included in a SmartDevice whenever required.
+
+For example, a device can have a Camera object, a GPS object, both, or neither.
+
+Composition provides flexibility, reusability, modularity, and easier extensibility because new capabilities can be added without modifying the existing inheritance hierarchy.
+
+
+Q3. During a customer checkout process in an e-commerce system, a CheckoutManager object initiates a PaymentGateway interaction, which in turn communicates with an external BankService. The BankService returns a result to the PaymentGateway, and finally, the PaymentGateway relays the payment status back to the CheckoutManager. Describe how UML Sequence Diagram reasoning would represent this flow of interactions. Specifically, explain how message ordering, object lifelines, and return messages are depicted, and why this diagram is effective for understanding dynamic object collaboration in this scenario.
+
+Answer:
+
+A UML Sequence Diagram represents interactions between objects in chronological order.
+
+In the checkout process, the objects involved are CheckoutManager, PaymentGateway, and BankService.
+
+The interaction takes place as follows:
+
+1. CheckoutManager sends a payment request to PaymentGateway.
+2. PaymentGateway sends a transaction request to BankService.
+3. BankService processes the payment.
+4. BankService returns the transaction result to PaymentGateway.
+5. PaymentGateway sends the payment status back to CheckoutManager.
+
+Each object is represented by a lifeline, which shows its existence during the interaction. Messages are represented by horizontal arrows between lifelines, while return messages indicate the results of operations.
+
+The diagram is effective because it clearly shows the order of communication, the responsibilities of each object, and how different objects collaborate to complete the checkout process.
+
+
+Q4. Consider a NotificationService that can send messages using various mechanisms such as email, SMS, or push notifications. A client application needs to send a notification but should not be aware of the specific underlying mechanism. Explain how the OOP concept of abstraction, specifically through interfaces or abstract classes, allows the NotificationService to be highly extensible. Discuss how this design makes it possible to introduce new notification mechanisms (e.g., a new messaging app integration) without requiring any changes to the client's code, demonstrating the benefits of dependency on abstractions.
+
+Answer:
+
+Abstraction hides implementation details and exposes only the essential functionality required by the client.
+
+A Notification interface can define a common method such as sendMessage().
+
+Different classes such as EmailNotification, SMSNotification, and PushNotification can implement this interface with their own specific implementations.
+
+The NotificationService interacts with the Notification interface instead of depending on a particular notification class.
+
+When a new notification mechanism is introduced, such as a messaging app integration, a new class can implement the existing interface without modifying the client application.
+
+This demonstrates abstraction, runtime polymorphism, and dependency on abstractions.
+
+It improves flexibility, maintainability, reusability, and extensibility of the system.
+
+
+Q5. A University contains Departments, and each Department has Professors. If a University ceases to exist, its Departments also cease to exist, but the Professors might continue their careers at other institutions. Explain the difference between Aggregation and Composition UML relationships using this University, Department, and Professor scenario. Clearly articulate the concepts of object ownership and lifecycle dependency that differentiate these two types of 'whole-part' relationships and justify which one applies where.
+
+Answer:
+
+Composition is a strong whole-part relationship in which the part depends on the lifecycle of the whole object.
+
+In this scenario, a University contains Departments. If the University ceases to exist, its Departments also cease to exist. Therefore, University and Department have a Composition relationship.
+
+Aggregation is a weak whole-part relationship in which the part can exist independently of the whole object.
+
+In this scenario, Departments have Professors. If a University ceases to exist, Professors can continue their careers at other institutions.
+
+Therefore, Department and Professor have an Aggregation relationship.
+
+The main difference is that Composition represents strong ownership and lifecycle dependency, whereas Aggregation represents weak ownership where the associated objects can exist independently.
